@@ -2,10 +2,13 @@
 
 {% block body %}
 
-    <h1>{{ article.title }}</h1>
+     <turbo-frame id="messages">
+         <h1>{{ article.title }}</h1>
 
     <article>
         {{ article.content }}
     </article>
+     </turbo-frame>
+
 
 {% endblock %}

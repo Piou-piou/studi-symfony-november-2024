@@ -1,7 +1,20 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-
     <h1>Hello</h1>
 
+    <div data-controller="test">
+        <div>
+            <input type="text" data-test-target="name">
+            <button data-action="click->test#fillResult">Valider</button>
+        </div>
+
+        <div data-test-target="result">
+
+        </div>
+    </div>
+
+    <turbo-frame id="messages" src="/article/mon-premier-article/1">
+      <p>Chargement...</p>
+    </turbo-frame>
 {% endblock %}
