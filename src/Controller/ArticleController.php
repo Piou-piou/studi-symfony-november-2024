@@ -14,6 +14,28 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class ArticleController extends AbstractController
 {
+    #[Route('/article', name: 'article_list')]
+    public function list(ArticleRepository $repository): Response
+    {
+        return $this->render('article/list.html.twig', [
+            'articles' => $repository->findAll(),
+        ]);
+    }
+
+
+    #[Route('/article/{slug}/{id}', name: 'article_show')]
+    //#[IsGranted('show', 'article')]
+    public function show(ArticleRepository $repository, string $slug, int $id): Response
+    {
+        if (!$article = $repository->findOneBySlugQuery($slug, $id)) {
+            throw new NotFoundHttpException('Article not found');
+        }
+
+        return $this->render('article/show.html.twig', [
+            'article' => $article,
+        ]);
+    }
+
     #[Route('/article/create', name: 'article_create')]
     #[Route('/article/edit/{id}', name: 'article_edit')]
     public function edit(Request $request, EntityManagerInterface $em, ?Article $article)
@@ -40,19 +62,6 @@ class ArticleController extends AbstractController
 
         return $this->render('article/edit.html.twig', [
             'form' => $form
-        ]);
-    }
-
-    #[Route('/article/{slug}/{id}', name: 'article_show')]
-    //#[IsGranted('show', 'article')]
-    public function show(ArticleRepository $repository, string $slug, int $id): Response
-    {
-        if (!$article = $repository->findOneBySlugQuery($slug, $id)) {
-            throw new NotFoundHttpException('Article not found');
-        }
-
-        return $this->render('article/show.html.twig', [
-            'article' => $article,
         ]);
     }
 }

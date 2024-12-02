@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <table>
+        <thead>
+            <tr>
+                <th>Titre</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for article in articles %}
+                <tr>
+                    <td>{{ article.title }}</td>
+                    <td><a href="{{ path('article_show', {'id': article.id, 'slug': article.slug}) }}">Voir</a></td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="2">Aucun article</td>
+                </tr>
+            {% endfor %}
+            <tr></tr>
+        </tbody>
+    </table>
+
+{% endblock %}
