@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\DataFixtures\User\AdminFixtures;
 use App\Entity\Article;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -27,7 +28,7 @@ class ArticleFixtures extends Fixture implements DependentFixtureInterface
     public function getDependencies(): array
     {
         return [
-            UserFixtures::class,
+            AdminFixtures::class,
         ];
     }
 }
